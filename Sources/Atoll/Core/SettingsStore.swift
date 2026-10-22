@@ -44,6 +44,7 @@ final class SettingsStore: ObservableObject {
     @AppStorage("agentsLiveActivity") var agentsLiveActivity = true { willSet { objectWillChange.send() } }
     @AppStorage("calendarLiveActivity") var calendarLiveActivity = true { willSet { objectWillChange.send() } }
     @AppStorage("todosLiveActivity") var todosLiveActivity = true { willSet { objectWillChange.send() } }
+    @AppStorage("scoresLiveActivity") var scoresLiveActivity = true { willSet { objectWillChange.send() } }
 
     // MARK: HUD replacement
     @AppStorage("replaceSystemHUD") var replaceSystemHUD = false { willSet { objectWillChange.send() } }

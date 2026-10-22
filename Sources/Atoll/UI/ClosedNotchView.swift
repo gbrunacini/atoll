@@ -114,6 +114,9 @@ struct ClosedNotchView: View {
                 if settings.todosLiveActivity {
                     TodoCountWing()
                 }
+                if settings.scoresLiveActivity {
+                    ScoreWing()
+                }
             }
             .padding(.leading, 3)
             .padding(.trailing, hasAnyRightContent ? 8 : 0)

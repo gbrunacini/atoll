@@ -24,6 +24,7 @@ let package = Package(
                 "Features/Media/INTEGRATION.md",
                 "Features/Mirror/INTEGRATION.md",
                 "Features/Notes/INTEGRATION.md",
+                "Features/Scores/INTEGRATION.md",
                 "Features/Shelf/INTEGRATION.md",
                 "Features/ShortcutsRunner/INTEGRATION.md",
                 "Features/SystemEvents/INTEGRATION.md",

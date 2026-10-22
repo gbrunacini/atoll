@@ -19,6 +19,7 @@ struct SettingsRootView: View {
         case notes = "Notes"
         case todos = "To-dos"
         case shortcuts = "Shortcuts"
+        case scores = "Scores"
 
         var id: String { rawValue }
 
@@ -39,6 +40,7 @@ struct SettingsRootView: View {
             case .notes: return "note.text"
             case .todos: return "checklist"
             case .shortcuts: return "app.connected.to.app.below.fill"
+            case .scores: return "sportscourt"
             }
         }
     }
@@ -78,6 +80,7 @@ struct SettingsRootView: View {
         case .notes: NotesSettingsView()
         case .todos: TodosSettingsView()
         case .shortcuts: ShortcutsSettingsView()
+        case .scores: ScoresSettingsView()
         }
     }
 }
@@ -233,6 +236,7 @@ struct LiveActivitySettingsView: View {
                 Toggle("Agent sessions", isOn: $settings.agentsLiveActivity)
                 Toggle("Upcoming calendar event", isOn: $settings.calendarLiveActivity)
                 Toggle("Open to-dos count", isOn: $settings.todosLiveActivity)
+                Toggle("Live game score", isOn: $settings.scoresLiveActivity)
             }
         }
         .formStyle(.grouped)
