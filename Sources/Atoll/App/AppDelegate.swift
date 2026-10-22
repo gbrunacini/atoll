@@ -61,6 +61,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         BatteryMonitor.shared.start()
         _ = ShelfStore.shared
         _ = TodosStore.shared
+        ScoresStore.shared.start()
         _ = TimerManager.shared
         ShortcutsManager.shared.refresh()
 
