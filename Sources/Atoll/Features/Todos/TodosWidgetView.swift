@@ -45,7 +45,7 @@ struct TodosWidgetView: View {
     private var header: some View {
         HStack(spacing: 6) {
             Label("To-dos", systemImage: "checklist")
-                .font(.system(size: 13, weight: .semibold))
+                .font(HubStyle.title)
                 .foregroundStyle(.white.opacity(0.92))
             Spacer()
             if !summary.isEmpty {
@@ -73,7 +73,7 @@ struct TodosWidgetView: View {
                 .foregroundStyle(.white.opacity(0.35))
             TextField("Add a to-do…", text: $draft)
                 .textFieldStyle(.plain)
-                .font(.system(size: 12.5))
+                .font(HubStyle.body)
                 .foregroundStyle(.white)
                 .focused($addFieldFocused)
                 .onSubmit(submitDraft)
@@ -81,7 +81,7 @@ struct TodosWidgetView: View {
         .padding(.horizontal, 10)
         .padding(.vertical, 7)
         .background(
-            RoundedRectangle(cornerRadius: 9)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius)
                 .fill(Color.white.opacity(addFieldFocused ? 0.10 : 0.07))
         )
         .contentShape(Rectangle())
@@ -100,10 +100,10 @@ struct TodosWidgetView: View {
     private var emptyState: some View {
         VStack(spacing: 6) {
             Image(systemName: "checkmark.seal")
-                .font(.system(size: 22))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(.white.opacity(0.25))
             Text("All clear")
-                .font(.system(size: 12, weight: .medium))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(.white.opacity(0.5))
             Text("Press Return to add a to-do")
                 .font(.system(size: 11))
@@ -166,7 +166,7 @@ private struct TodoRowView: View {
             .help(todo.done ? "Mark as open" : "Mark as done")
 
             Text(todo.title)
-                .font(.system(size: 12.5))
+                .font(HubStyle.body)
                 .strikethrough(todo.done, color: .white.opacity(0.4))
                 .foregroundStyle(todo.done ? Color.white.opacity(0.38) : Color.white.opacity(0.92))
                 .lineLimit(1)
@@ -203,7 +203,7 @@ private struct TodoRowView: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 5)
         .background(
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius)
                 .fill(Color.white.opacity(hovering ? 0.06 : 0))
         )
         .contentShape(Rectangle())
@@ -270,7 +270,7 @@ private struct ArchivedTodoRowView: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .background(
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius)
                 .fill(Color.white.opacity(hovering ? 0.05 : 0))
         )
         .contentShape(Rectangle())

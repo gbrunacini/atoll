@@ -66,7 +66,7 @@ struct OpenNotchView: View {
                     .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(vm.isPinned ? settings.accentColor : Color.white.opacity(0.55))
                     .frame(width: 24, height: 22)
-                    .background(RoundedRectangle(cornerRadius: 6).fill(Color.white.opacity(vm.isPinned ? 0.12 : 0)))
+                    .background(RoundedRectangle(cornerRadius: HubStyle.controlRadius).fill(Color.white.opacity(vm.isPinned ? 0.12 : 0)))
             }
             .buttonStyle(.plain)
             .help(vm.isPinned ? "Unpin the nook" : "Keep the nook open")
@@ -103,8 +103,8 @@ struct OpenNotchView: View {
             .padding(.horizontal, 9)
             .padding(.vertical, 4.5)
             .background(
-                RoundedRectangle(cornerRadius: 7)
-                    .fill(vm.tab == tab ? Color.white.opacity(0.16) : .clear)
+                RoundedRectangle(cornerRadius: HubStyle.controlRadius)
+                    .fill(vm.tab == tab ? HubStyle.selectionFill : .clear)
             )
         }
         .buttonStyle(.plain)
@@ -138,7 +138,7 @@ struct OpenNotchView: View {
                         CalendarWidgetView()
                             .frame(width: 232)
                             .frame(maxHeight: .infinity)
-                            .background(RoundedRectangle(cornerRadius: 12).fill(Color.white.opacity(0.05)))
+                            .background(RoundedRectangle(cornerRadius: HubStyle.cardRadius).fill(HubStyle.cardFill))
                     }
                 }
             }
@@ -173,12 +173,12 @@ struct OpenNotchView: View {
                         Image(systemName: pane.systemImage)
                             .font(.system(size: 13, weight: .medium))
                         Text(pane.rawValue)
-                            .font(.system(size: 8.5))
+                            .font(.system(size: 9.5, weight: .medium))
                     }
                     .frame(width: 52, height: 42)
                     .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(toolPane == pane ? Color.white.opacity(0.16) : Color.white.opacity(0.04))
+                        RoundedRectangle(cornerRadius: HubStyle.controlRadius)
+                            .fill(toolPane == pane ? HubStyle.selectionFill : HubStyle.cardFill)
                     )
                     .foregroundStyle(toolPane == pane ? .white : Color.white.opacity(0.6))
                 }

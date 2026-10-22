@@ -23,7 +23,7 @@ struct MediaPlayerCard: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .fill(LinearGradient(
                     colors: [manager.artworkTint.opacity(0.16), Color.white.opacity(0.04)],
                     startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -87,14 +87,14 @@ struct MediaPlayerCard: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: size, height: size)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous))
                     .shadow(color: manager.artworkTint.opacity(0.5), radius: 24, y: 2)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                             .stroke(Color.white.opacity(0.1), lineWidth: 1)
                     )
             } else {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                     .fill(Color.white.opacity(0.08))
                     .frame(width: size, height: size)
                     .overlay(

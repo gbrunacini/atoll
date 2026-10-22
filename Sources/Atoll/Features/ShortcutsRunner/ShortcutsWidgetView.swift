@@ -21,7 +21,7 @@ struct ShortcutsWidgetView: View {
         HStack(spacing: 8) {
             Label("Shortcuts", systemImage: "app.connected.to.app.below.fill")
                 .labelStyle(.titleAndIcon)
-                .font(.system(size: 12, weight: .semibold))
+                .font(HubStyle.title)
                 .foregroundStyle(.white.opacity(0.85))
                 .lineLimit(1)
                 .layoutPriority(1)
@@ -59,7 +59,7 @@ struct ShortcutsWidgetView: View {
                 .foregroundStyle(.white.opacity(0.45))
             TextField("Search", text: $manager.searchText)
                 .textFieldStyle(.plain)
-                .font(.system(size: 12))
+                .font(HubStyle.body)
                 .foregroundStyle(.white)
             if !manager.searchText.isEmpty {
                 Button {
@@ -74,7 +74,7 @@ struct ShortcutsWidgetView: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 5)
-        .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
+        .background(RoundedRectangle(cornerRadius: HubStyle.rowRadius).fill(Color.white.opacity(0.08)))
         .frame(maxWidth: 220)
     }
 
@@ -106,7 +106,7 @@ struct ShortcutsWidgetView: View {
                         .controlSize(.small)
                         .tint(.white)
                     Text("Loading shortcuts…")
-                        .font(.system(size: 12))
+                        .font(HubStyle.body)
                         .foregroundStyle(.white.opacity(0.55))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -175,7 +175,7 @@ private struct ShortcutsChipView: View {
     var body: some View {
         HStack(spacing: 6) {
             Text(item.name)
-                .font(.system(size: 12, weight: .medium))
+                .font(HubStyle.bodyMedium)
                 .lineLimit(1)
                 .truncationMode(.tail)
                 .foregroundStyle(.white.opacity(isRunning ? 0.5 : 0.92))
@@ -187,13 +187,13 @@ private struct ShortcutsChipView: View {
         .padding(.horizontal, 10)
         .frame(height: 34)
         .frame(maxWidth: .infinity)
-        .background(RoundedRectangle(cornerRadius: 10).fill(fillColor))
+        .background(RoundedRectangle(cornerRadius: HubStyle.rowRadius).fill(fillColor))
         .overlay(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius)
                 .strokeBorder(borderColor, lineWidth: 1)
         )
         .overlay(runOverlay)
-        .contentShape(RoundedRectangle(cornerRadius: 10))
+        .contentShape(RoundedRectangle(cornerRadius: HubStyle.rowRadius))
         .onTapGesture {
             guard !isRunning else { return }
             manager.run(item)
@@ -243,7 +243,7 @@ private struct ShortcutsChipView: View {
     private var runOverlay: some View {
         if isRunning {
             ZStack {
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: HubStyle.rowRadius)
                     .fill(Color.black.opacity(0.35))
                 HStack(spacing: 6) {
                     ProgressView()
@@ -292,10 +292,10 @@ private struct ShortcutsEmptyStateView: View {
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
-                .font(.system(size: 26, weight: .regular))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(.white.opacity(0.4))
             Text(title)
-                .font(.system(size: 13, weight: .semibold))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(.white.opacity(0.85))
             Text(message)
                 .font(.system(size: 11))
@@ -306,10 +306,10 @@ private struct ShortcutsEmptyStateView: View {
             if let actionTitle, let action {
                 Button(action: action) {
                     Text(actionTitle)
-                        .font(.system(size: 12, weight: .medium))
+                        .font(HubStyle.bodyMedium)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 5)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.12)))
+                        .background(RoundedRectangle(cornerRadius: HubStyle.rowRadius).fill(Color.white.opacity(0.12)))
                 }
                 .buttonStyle(.plain)
                 .padding(.top, 2)
