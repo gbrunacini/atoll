@@ -34,13 +34,13 @@ struct ClosedNotchView: View {
     var body: some View {
         HStack(spacing: 0) {
             leftWing
-                .frame(height: vm.geometry.notchSize.height)
+                .frame(height: vm.closedNotchSize.height)
                 .fixedSize()
                 .background(WingWidthReader(side: .left))
             Color.clear
-                .frame(width: vm.geometry.notchSize.width, height: vm.geometry.notchSize.height)
+                .frame(width: vm.closedNotchSize.width, height: vm.closedNotchSize.height)
             rightWing
-                .frame(height: vm.geometry.notchSize.height)
+                .frame(height: vm.closedNotchSize.height)
                 .fixedSize()
                 .background(WingWidthReader(side: .right))
         }

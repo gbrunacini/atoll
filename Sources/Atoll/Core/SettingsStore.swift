@@ -14,10 +14,17 @@ final class SettingsStore: ObservableObject {
     @AppStorage("hoverDelay") var hoverDelay = 0.1 { willSet { objectWillChange.send() } }
     @AppStorage("showOnAllDisplays") var showOnAllDisplays = true { willSet { objectWillChange.send() } }
     @AppStorage("fakeNotchOnExternalDisplays") var fakeNotchOnExternalDisplays = true { willSet { objectWillChange.send() } }
-    @AppStorage("hapticFeedback") var hapticFeedback = true { willSet { objectWillChange.send() } }
+    /// Off by default: a tap on every hover-enter feels like a buzz when the
+    /// pointer skims the notch. When on, it fires once as the nook opens.
+    @AppStorage("hapticFeedback") var hapticFeedback = false { willSet { objectWillChange.send() } }
 
     // MARK: Appearance
-    @AppStorage("notchExtraWidth") var notchExtraWidth = 0.0 { willSet { objectWillChange.send() } }
+    /// Points added to the measured cutout when drawing the closed body. macOS
+    /// reports the cutout rounded to points and a touch narrow (boring.notch
+    /// adds 4), and on scaled resolutions every edge is resampled — so the
+    /// user can trim both per machine.
+    @AppStorage("notchExtraWidth") var notchExtraWidth = 4.0 { willSet { objectWillChange.send() } }
+    @AppStorage("notchExtraHeight") var notchExtraHeight = 0.0 { willSet { objectWillChange.send() } }
     @AppStorage("openCornerRadius") var openCornerRadius = 24.0 { willSet { objectWillChange.send() } }
     @AppStorage("showBorderGlow") var showBorderGlow = false { willSet { objectWillChange.send() } }
     /// "black" | "gradient" | "artwork"

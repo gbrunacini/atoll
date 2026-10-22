@@ -46,9 +46,16 @@ final class NotchViewModel: ObservableObject {
     @Published var leftWingWidth: CGFloat = 0
     @Published var rightWingWidth: CGFloat = 0
 
+    /// The black body drawn over the hardware cutout: the measured notch plus
+    /// the user's calibration (see `SettingsStore.notchExtraWidth`).
+    var closedNotchSize: CGSize {
+        CGSize(width: max(60, geometry.notchSize.width + settings.notchExtraWidth),
+               height: max(12, geometry.notchSize.height + settings.notchExtraHeight))
+    }
+
     var closedSize: CGSize {
-        CGSize(width: geometry.notchSize.width + leftWingWidth + rightWingWidth,
-               height: geometry.notchSize.height)
+        CGSize(width: closedNotchSize.width + leftWingWidth + rightWingWidth,
+               height: closedNotchSize.height)
     }
 
     private var hoverOpenTask: Task<Void, Never>?
@@ -99,9 +106,6 @@ final class NotchViewModel: ObservableObject {
             // expanding would tear the volume/brightness capsule out mid-interaction.
             let peek = SneakPeekCoordinator.shared
             guard !peek.visible, !peek.isInteracting else { return }
-            if settings.hapticFeedback {
-                NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .now)
-            }
             hoverOpenTask?.cancel()
             hoverOpenTask = Task { [weak self] in
                 guard let self else { return }
@@ -113,6 +117,11 @@ final class NotchViewModel: ObservableObject {
                 // Re-check: the HUD may have appeared during the hover delay.
                 let peek = SneakPeekCoordinator.shared
                 guard !peek.visible, !peek.isInteracting else { return }
+                if self.settings.hapticFeedback {
+                    // One tap as the nook actually opens — not on every
+                    // hover-enter, which buzzes when the pointer skims the edge.
+                    NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .drawCompleted)
+                }
                 self.open()
             }
         } else {

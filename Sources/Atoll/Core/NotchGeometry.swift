@@ -7,6 +7,8 @@ struct NotchGeometry: Equatable {
     var notchSize: CGSize
     /// Whether the screen has a real hardware notch.
     var hasHardwareNotch: Bool
+    /// Pixels per point on this screen, for snapping layout to the pixel grid.
+    var backingScale: CGFloat = 2
 
     /// Frame of the notch in screen coordinates (origin bottom-left, AppKit style).
     var notchFrame: CGRect {
@@ -30,7 +32,8 @@ struct NotchGeometry: Equatable {
             return NotchGeometry(
                 screenFrame: frame,
                 notchSize: CGSize(width: width, height: topInset),
-                hasHardwareNotch: true
+                hasHardwareNotch: true,
+                backingScale: screen.backingScaleFactor
             )
         }
         // No hardware notch (external display / older Mac): simulate one sized to the menu bar.
@@ -39,7 +42,8 @@ struct NotchGeometry: Equatable {
         return NotchGeometry(
             screenFrame: frame,
             notchSize: CGSize(width: 196, height: height),
-            hasHardwareNotch: false
+            hasHardwareNotch: false,
+            backingScale: screen.backingScaleFactor
         )
     }
 

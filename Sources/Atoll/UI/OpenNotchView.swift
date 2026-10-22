@@ -46,7 +46,7 @@ struct OpenNotchView: View {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding(.top, vm.geometry.notchSize.height + 2)
+        .padding(.top, vm.closedNotchSize.height + 2)
         .padding(.horizontal, 16)
         .padding(.bottom, 14)
         .foregroundStyle(.white)

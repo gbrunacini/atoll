@@ -102,7 +102,7 @@ struct GeneralSettingsView: View {
                             .frame(width: 38, alignment: .trailing)
                     }
                 }
-                Toggle("Haptic feedback", isOn: $settings.hapticFeedback)
+                Toggle("Haptic tap when opening on hover", isOn: $settings.hapticFeedback)
             }
             Section("Displays") {
                 Toggle("Show on all displays", isOn: $settings.showOnAllDisplays)
@@ -168,8 +168,37 @@ struct AppearanceSettingsView: View {
                         .frame(width: 52, alignment: .trailing)
                 }
             }
+            Section {
+                HStack {
+                    Text("Width")
+                    Slider(value: $settings.notchExtraWidth, in: -6...12, step: 0.5)
+                    Text(signedPoints(settings.notchExtraWidth)).monospacedDigit()
+                        .frame(width: 52, alignment: .trailing)
+                }
+                HStack {
+                    Text("Height")
+                    Slider(value: $settings.notchExtraHeight, in: -4...6, step: 0.5)
+                    Text(signedPoints(settings.notchExtraHeight)).monospacedDigit()
+                        .frame(width: 52, alignment: .trailing)
+                }
+                Button("Reset to Default") {
+                    settings.notchExtraWidth = 4
+                    settings.notchExtraHeight = 0
+                }
+                .disabled(settings.notchExtraWidth == 4 && settings.notchExtraHeight == 0)
+            } header: {
+                Text("Closed notch fit")
+            } footer: {
+                Text("Adjust until the black bar matches the real notch. macOS reports the cutout rounded to whole points, and scaled resolutions (“More Space”) blur every edge, so the fit varies per Mac.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
         }
         .formStyle(.grouped)
+    }
+
+    private func signedPoints(_ value: Double) -> String {
+        String(format: "%@%.1f pt", value < 0 ? "−" : "+", abs(value))
     }
 }
 

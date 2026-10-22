@@ -8,11 +8,6 @@ struct NotchRootView: View {
     @EnvironmentObject var settings: SettingsStore
     @ObservedObject private var music = MusicManager.shared
 
-    /// Top-corner flare radius of the closed shape. The closed content is
-    /// padded by this much per side so the shape's *body* (bounds minus the
-    /// flares) exactly covers the hardware cutout + wings.
-    private let closedFlareRadius: CGFloat = 8
-
     var body: some View {
         VStack(spacing: 0) {
             notch
@@ -24,8 +19,11 @@ struct NotchRootView: View {
     }
 
     private var notchShape: NotchShape {
+        // Square top corners in both states, flush with the bezel like the
+        // hardware cutout. The outward flares read as little tabs, especially
+        // once a scaled resolution resamples them.
         NotchShape(
-            topCornerRadius: vm.state == .open ? 12 : closedFlareRadius,
+            topCornerRadius: 0,
             bottomCornerRadius: vm.state == .open ? settings.openCornerRadius : 13
         )
     }
@@ -48,6 +46,20 @@ struct NotchRootView: View {
         }
     }
 
+    /// Keeps the clear cutout pinned over the hardware notch: the container is
+    /// centered on the window (= the screen's center line), the wings may be
+    /// asymmetric, and an odd-width cutout sits half a point off that line.
+    /// Snapped to the pixel grid so edges and text don't land between pixels.
+    private var notchOffset: CGFloat {
+        let geometry = vm.geometry
+        var x = geometry.notchFrame.midX - geometry.screenFrame.midX
+        if vm.state == .closed {
+            x += (vm.rightWingWidth - vm.leftWingWidth) / 2
+        }
+        let scale = max(1, geometry.backingScale)
+        return (x * scale).rounded() / scale
+    }
+
     private var notch: some View {
         ZStack(alignment: .top) {
             if vm.state == .open {
@@ -56,8 +68,7 @@ struct NotchRootView: View {
                     .transition(.opacity.combined(with: .scale(scale: 0.9, anchor: .top)))
             } else {
                 ClosedNotchView()
-                    .frame(height: vm.geometry.notchSize.height)
-                    .padding(.horizontal, closedFlareRadius)
+                    .frame(height: vm.closedNotchSize.height)
                     .fixedSize()
                     .transition(.opacity)
             }
@@ -86,9 +97,7 @@ struct NotchRootView: View {
             alignment: .top
         )
         .contentShape(notchShape)
-        // Keep the clear cutout pinned over the hardware notch when the wings
-        // are asymmetric (the container is centered on the screen).
-        .offset(x: vm.state == .closed ? (vm.rightWingWidth - vm.leftWingWidth) / 2 : 0)
+        .offset(x: notchOffset)
         .animation(.spring(response: 0.35, dampingFraction: 0.85), value: vm.leftWingWidth)
         .animation(.spring(response: 0.35, dampingFraction: 0.85), value: vm.rightWingWidth)
         .onHover { hovering in
@@ -146,7 +155,7 @@ struct NotchRootView: View {
                         .fill(Color.black.opacity(0.88))
                         .shadow(color: .black.opacity(0.4), radius: 8, y: 3)
                 )
-                .offset(y: vm.geometry.notchSize.height + 6)
+                .offset(y: vm.closedNotchSize.height + 6)
                 .transition(.move(edge: .top).combined(with: .opacity))
                 .allowsHitTesting(false)
                 .animation(.spring(response: 0.35, dampingFraction: 0.8), value: music.showQuickPeek)

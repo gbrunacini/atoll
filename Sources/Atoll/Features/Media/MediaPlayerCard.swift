@@ -83,7 +83,7 @@ struct MediaPlayerCard: View {
     private func artwork(_ playback: MediaPlaybackState, size: CGFloat) -> some View {
         ZStack {
             if let image = playback.artworkImage {
-                Image(nsImage: image)
+                Image(nsImage: MediaArtworkThumbnail.image(image, pointSize: size))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: size, height: size)

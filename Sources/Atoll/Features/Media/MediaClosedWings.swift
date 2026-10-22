@@ -20,7 +20,7 @@ struct MediaClosedWingLeft: View {
     private func thumbnail(_ playback: MediaPlaybackState) -> some View {
         Group {
             if let image = playback.artworkImage {
-                Image(nsImage: image)
+                Image(nsImage: MediaArtworkThumbnail.image(image, pointSize: 19))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else if let icon = manager.sourceAppIcon {
