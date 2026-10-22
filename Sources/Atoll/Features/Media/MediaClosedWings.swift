@@ -8,7 +8,9 @@ struct MediaClosedWingLeft: View {
     @ObservedObject private var manager = MusicManager.shared
 
     var body: some View {
-        if manager.mediaEnabled, let playback = manager.playback, playback.hasContent {
+        // Only while playing: a paused track's artwork parked beside the notch
+        // all day reads as "Spotify is stuck on".
+        if manager.mediaEnabled, let playback = manager.playback, playback.hasContent, playback.isPlaying {
             thumbnail(playback)
                 .padding(.leading, 7)
                 .frame(maxHeight: .infinity, alignment: .center)
@@ -39,8 +41,6 @@ struct MediaClosedWingLeft: View {
         }
         .frame(width: 19, height: 19)
         .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-        .opacity(playback.isPlaying ? 1 : 0.55)
-        .animation(.easeOut(duration: 0.25), value: playback.isPlaying)
     }
 }
 

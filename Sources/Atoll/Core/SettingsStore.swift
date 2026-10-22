@@ -37,7 +37,7 @@ final class SettingsStore: ObservableObject {
 
     // MARK: Layout
     /// Comma-separated raw values of visible tabs (Home is always shown).
-    @AppStorage("layout.visibleTabs") var visibleTabsCSV = "Home,Shelf,Agents,Tools" { willSet { objectWillChange.send() } }
+    @AppStorage("layout.visibleTabs") var visibleTabsCSV = "Home,Shelf,Agents,Scores,Tools" { willSet { objectWillChange.send() } }
     @AppStorage("layout.defaultTab") var defaultTabRaw = "Home" { willSet { objectWillChange.send() } }
     /// "mediaCalendar" | "mediaOnly" | "calendarOnly"
     @AppStorage("layout.homeLayout") var homeLayout = "mediaCalendar" { willSet { objectWillChange.send() } }

@@ -124,7 +124,7 @@ struct ClosedNotchView: View {
     }
 
     private var hasAnyRightContent: Bool {
-        (settings.mediaLiveActivity && music.playback != nil)
+        (settings.mediaLiveActivity && music.playback?.isPlaying == true)
             || (settings.agentsLiveActivity && agents.liveSessionCount > 0)
     }
 

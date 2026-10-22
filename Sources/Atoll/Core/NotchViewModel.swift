@@ -10,6 +10,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
     case home = "Home"
     case shelf = "Shelf"
     case agents = "Agents"
+    case scores = "Scores"
     case tools = "Tools"
 
     var id: String { rawValue }
@@ -19,6 +20,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
         case .home: return "play.circle"
         case .shelf: return "tray.full"
         case .agents: return "sparkles.rectangle.stack"
+        case .scores: return "sportscourt"
         case .tools: return "wrench.and.screwdriver"
         }
     }

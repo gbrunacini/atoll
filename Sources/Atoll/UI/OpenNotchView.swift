@@ -22,7 +22,6 @@ struct OpenNotchView: View {
         case todos = "To-dos"
         case shortcuts = "Shortcuts"
         case mirror = "Mirror"
-        case scores = "Scores"
 
         var id: String { rawValue }
 
@@ -33,7 +32,6 @@ struct OpenNotchView: View {
             case .todos: return "checklist"
             case .shortcuts: return "app.connected.to.app.below.fill"
             case .mirror: return "web.camera"
-            case .scores: return "sportscourt"
             }
         }
     }
@@ -148,6 +146,8 @@ struct OpenNotchView: View {
             ShelfView()
         case .agents:
             AgentsPanelView(onDismiss: { vm.close() })
+        case .scores:
+            ScoresWidgetView()
         case .tools:
             HStack(spacing: 8) {
                 toolRail
@@ -196,7 +196,6 @@ struct OpenNotchView: View {
         case .todos: TodosWidgetView()
         case .shortcuts: ShortcutsWidgetView()
         case .mirror: MirrorView()
-        case .scores: ScoresWidgetView()
         }
     }
 }
