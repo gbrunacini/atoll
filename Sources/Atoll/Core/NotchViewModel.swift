@@ -99,9 +99,6 @@ final class NotchViewModel: ObservableObject {
             // expanding would tear the volume/brightness capsule out mid-interaction.
             let peek = SneakPeekCoordinator.shared
             guard !peek.visible, !peek.isInteracting else { return }
-            if settings.hapticFeedback {
-                NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .now)
-            }
             hoverOpenTask?.cancel()
             hoverOpenTask = Task { [weak self] in
                 guard let self else { return }
@@ -113,6 +110,11 @@ final class NotchViewModel: ObservableObject {
                 // Re-check: the HUD may have appeared during the hover delay.
                 let peek = SneakPeekCoordinator.shared
                 guard !peek.visible, !peek.isInteracting else { return }
+                if self.settings.hapticFeedback {
+                    // One tap as the nook actually opens — not on every
+                    // hover-enter, which buzzes when the pointer skims the edge.
+                    NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .drawCompleted)
+                }
                 self.open()
             }
         } else {

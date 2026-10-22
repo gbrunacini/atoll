@@ -48,7 +48,7 @@ struct MediaQuickPeekView: View {
     private func artwork(_ playback: MediaPlaybackState) -> some View {
         Group {
             if let image = playback.artworkImage {
-                Image(nsImage: image)
+                Image(nsImage: MediaArtworkThumbnail.image(image, pointSize: 18))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else {

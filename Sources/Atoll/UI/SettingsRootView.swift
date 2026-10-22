@@ -102,7 +102,7 @@ struct GeneralSettingsView: View {
                             .frame(width: 38, alignment: .trailing)
                     }
                 }
-                Toggle("Haptic feedback", isOn: $settings.hapticFeedback)
+                Toggle("Haptic tap when opening on hover", isOn: $settings.hapticFeedback)
             }
             Section("Displays") {
                 Toggle("Show on all displays", isOn: $settings.showOnAllDisplays)

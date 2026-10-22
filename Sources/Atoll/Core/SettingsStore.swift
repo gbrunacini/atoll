@@ -14,7 +14,9 @@ final class SettingsStore: ObservableObject {
     @AppStorage("hoverDelay") var hoverDelay = 0.1 { willSet { objectWillChange.send() } }
     @AppStorage("showOnAllDisplays") var showOnAllDisplays = true { willSet { objectWillChange.send() } }
     @AppStorage("fakeNotchOnExternalDisplays") var fakeNotchOnExternalDisplays = true { willSet { objectWillChange.send() } }
-    @AppStorage("hapticFeedback") var hapticFeedback = true { willSet { objectWillChange.send() } }
+    /// Off by default: a tap on every hover-enter feels like a buzz when the
+    /// pointer skims the notch. When on, it fires once as the nook opens.
+    @AppStorage("hapticFeedback") var hapticFeedback = false { willSet { objectWillChange.send() } }
 
     // MARK: Appearance
     @AppStorage("notchExtraWidth") var notchExtraWidth = 0.0 { willSet { objectWillChange.send() } }

@@ -48,6 +48,20 @@ struct NotchRootView: View {
         }
     }
 
+    /// Keeps the clear cutout pinned over the hardware notch: the container is
+    /// centered on the window (= the screen's center line), the wings may be
+    /// asymmetric, and an odd-width cutout sits half a point off that line.
+    /// Snapped to the pixel grid so edges and text don't land between pixels.
+    private var notchOffset: CGFloat {
+        let geometry = vm.geometry
+        var x = geometry.notchFrame.midX - geometry.screenFrame.midX
+        if vm.state == .closed {
+            x += (vm.rightWingWidth - vm.leftWingWidth) / 2
+        }
+        let scale = max(1, geometry.backingScale)
+        return (x * scale).rounded() / scale
+    }
+
     private var notch: some View {
         ZStack(alignment: .top) {
             if vm.state == .open {
@@ -86,9 +100,7 @@ struct NotchRootView: View {
             alignment: .top
         )
         .contentShape(notchShape)
-        // Keep the clear cutout pinned over the hardware notch when the wings
-        // are asymmetric (the container is centered on the screen).
-        .offset(x: vm.state == .closed ? (vm.rightWingWidth - vm.leftWingWidth) / 2 : 0)
+        .offset(x: notchOffset)
         .animation(.spring(response: 0.35, dampingFraction: 0.85), value: vm.leftWingWidth)
         .animation(.spring(response: 0.35, dampingFraction: 0.85), value: vm.rightWingWidth)
         .onHover { hovering in

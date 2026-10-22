@@ -110,12 +110,14 @@ final class NotchController: NSObject {
         let geometry = viewModel.geometry
         let openSize = viewModel.openSize
         lastAppliedOpenSize = openSize
-        let size = CGSize(
-            width: max(openSize.width, viewModel.closedSize.width) + framePadding * 2,
-            height: openSize.height + framePadding
-        )
+        // Whole points with an even width, so the content's center line lands
+        // exactly on the screen's; AppKit rounds fractional origins, which
+        // would shift everything by half a pixel.
+        var width = (max(openSize.width, viewModel.closedSize.width) + framePadding * 2).rounded(.up)
+        if width.truncatingRemainder(dividingBy: 2) != 0 { width += 1 }
+        let size = CGSize(width: width, height: (openSize.height + framePadding).rounded(.up))
         let frame = CGRect(
-            x: geometry.screenFrame.midX - size.width / 2,
+            x: (geometry.screenFrame.midX - size.width / 2).rounded(),
             y: geometry.screenFrame.maxY - size.height,
             width: size.width,
             height: size.height
