@@ -19,11 +19,11 @@ struct NotchRootView: View {
     }
 
     private var notchShape: NotchShape {
-        // Closed: square top corners, flush with the bezel like the hardware
-        // cutout. Flares there read as little tabs, especially once a scaled
-        // resolution resamples them. The open hub keeps its larger flares.
+        // Square top corners in both states, flush with the bezel like the
+        // hardware cutout. The outward flares read as little tabs, especially
+        // once a scaled resolution resamples them.
         NotchShape(
-            topCornerRadius: vm.state == .open ? 12 : 0,
+            topCornerRadius: 0,
             bottomCornerRadius: vm.state == .open ? settings.openCornerRadius : 13
         )
     }
