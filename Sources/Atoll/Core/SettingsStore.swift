@@ -19,7 +19,12 @@ final class SettingsStore: ObservableObject {
     @AppStorage("hapticFeedback") var hapticFeedback = false { willSet { objectWillChange.send() } }
 
     // MARK: Appearance
-    @AppStorage("notchExtraWidth") var notchExtraWidth = 0.0 { willSet { objectWillChange.send() } }
+    /// Points added to the measured cutout when drawing the closed body. macOS
+    /// reports the cutout rounded to points and a touch narrow (boring.notch
+    /// adds 4), and on scaled resolutions every edge is resampled — so the
+    /// user can trim both per machine.
+    @AppStorage("notchExtraWidth") var notchExtraWidth = 4.0 { willSet { objectWillChange.send() } }
+    @AppStorage("notchExtraHeight") var notchExtraHeight = 0.0 { willSet { objectWillChange.send() } }
     @AppStorage("openCornerRadius") var openCornerRadius = 24.0 { willSet { objectWillChange.send() } }
     @AppStorage("showBorderGlow") var showBorderGlow = false { willSet { objectWillChange.send() } }
     /// "black" | "gradient" | "artwork"

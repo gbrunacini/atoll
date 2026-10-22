@@ -46,9 +46,16 @@ final class NotchViewModel: ObservableObject {
     @Published var leftWingWidth: CGFloat = 0
     @Published var rightWingWidth: CGFloat = 0
 
+    /// The black body drawn over the hardware cutout: the measured notch plus
+    /// the user's calibration (see `SettingsStore.notchExtraWidth`).
+    var closedNotchSize: CGSize {
+        CGSize(width: max(60, geometry.notchSize.width + settings.notchExtraWidth),
+               height: max(12, geometry.notchSize.height + settings.notchExtraHeight))
+    }
+
     var closedSize: CGSize {
-        CGSize(width: geometry.notchSize.width + leftWingWidth + rightWingWidth,
-               height: geometry.notchSize.height)
+        CGSize(width: closedNotchSize.width + leftWingWidth + rightWingWidth,
+               height: closedNotchSize.height)
     }
 
     private var hoverOpenTask: Task<Void, Never>?

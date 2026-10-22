@@ -70,7 +70,7 @@ struct NotchRootView: View {
                     .transition(.opacity.combined(with: .scale(scale: 0.9, anchor: .top)))
             } else {
                 ClosedNotchView()
-                    .frame(height: vm.geometry.notchSize.height)
+                    .frame(height: vm.closedNotchSize.height)
                     .padding(.horizontal, closedFlareRadius)
                     .fixedSize()
                     .transition(.opacity)
@@ -158,7 +158,7 @@ struct NotchRootView: View {
                         .fill(Color.black.opacity(0.88))
                         .shadow(color: .black.opacity(0.4), radius: 8, y: 3)
                 )
-                .offset(y: vm.geometry.notchSize.height + 6)
+                .offset(y: vm.closedNotchSize.height + 6)
                 .transition(.move(edge: .top).combined(with: .opacity))
                 .allowsHitTesting(false)
                 .animation(.spring(response: 0.35, dampingFraction: 0.8), value: music.showQuickPeek)
