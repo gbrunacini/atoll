@@ -4,7 +4,7 @@
 
 | View | Placement |
 |---|---|
-| `ScoresWidgetView` | Open notch, **Tools** tab → "Scores" rail pane (SF Symbol `sportscourt`). Fills whatever frame it is given; content scrolls. One row per game: live first, then upcoming (with start time), then finals. Dark-notch styled. Right-click a row → "Open on ESPN". |
+| `ScoresWidgetView` | Open notch, its own top-level **Scores** tab (`NotchTab.scores`, SF Symbol `sportscourt`; listed in `SettingsStore.visibleTabsCSV`'s default). Fills whatever frame it is given; content scrolls. One row per game: live first, then upcoming (with start time), then finals. Dark-notch styled. Right-click a row → "Open on ESPN". |
 | `ScoreWing` | Closed-notch **right wing**, gated on `SettingsStore.scoresLiveActivity`. "CHI 98 – BOS 94 Q4" for a live tracked game; cycles every 8 s when several are live. Renders **nothing** when no tracked team is live, so it can be composed unconditionally. |
 | `ScoresSettingsView` | Settings window, "Scores" pane. Team picker per league (NFL / NBA / MLB), poll intervals, wing toggle. Standard system `Form` styling. |
 

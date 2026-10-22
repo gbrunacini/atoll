@@ -36,10 +36,10 @@ struct AgentApprovalCardView: View {
         }
         .padding(12)
         .background(
-            RoundedRectangle(cornerRadius: 13, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .fill(Color.white.opacity(0.08))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                    RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                         .stroke(Color.red.opacity(0.35), lineWidth: 1)
                 )
         )
@@ -62,7 +62,7 @@ struct AgentApprovalCardView: View {
                 .foregroundStyle(isQuestion ? Color.cyan : Color.red)
                 .frame(width: 26, height: 26)
                 .background(
-                    RoundedRectangle(cornerRadius: 7, style: .continuous)
+                    RoundedRectangle(cornerRadius: HubStyle.controlRadius, style: .continuous)
                         .fill((isQuestion ? Color.cyan : Color.red).opacity(0.15))
                 )
             VStack(alignment: .leading, spacing: 1) {
@@ -122,7 +122,7 @@ struct AgentApprovalCardView: View {
         }
         .frame(maxHeight: 110)
         .background(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                 .fill(Color.black.opacity(0.45))
         )
     }
@@ -278,7 +278,7 @@ struct AgentApprovalCardView: View {
             .padding(.horizontal, 9)
             .padding(.vertical, 6)
             .background(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                     .fill(Color.white.opacity(selected ? 0.16 : 0.07))
             )
         }
@@ -296,7 +296,7 @@ struct AgentApprovalCardView: View {
                 .padding(.horizontal, 9)
                 .padding(.vertical, 6)
                 .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                         .fill(Color.black.opacity(0.4))
                 )
             Button {
@@ -438,10 +438,10 @@ private struct AgentDecisionButton: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
             .background(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                     .fill(tint.opacity(prominent ? 0.4 : 0.18))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                             .stroke(tint.opacity(prominent ? 0.8 : 0.4), lineWidth: 1)
                     )
             )

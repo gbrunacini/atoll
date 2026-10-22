@@ -11,7 +11,8 @@ final class SettingsStore: ObservableObject {
 
     // MARK: General
     @AppStorage("openOnHover") var openOnHover = true { willSet { objectWillChange.send() } }
-    @AppStorage("hoverDelay") var hoverDelay = 0.1 { willSet { objectWillChange.send() } }
+    /// Long enough that brushing the menu bar doesn't pop the hub open.
+    @AppStorage("hoverDelay") var hoverDelay = 0.25 { willSet { objectWillChange.send() } }
     @AppStorage("showOnAllDisplays") var showOnAllDisplays = true { willSet { objectWillChange.send() } }
     @AppStorage("fakeNotchOnExternalDisplays") var fakeNotchOnExternalDisplays = true { willSet { objectWillChange.send() } }
     /// Off by default: a tap on every hover-enter feels like a buzz when the
@@ -37,7 +38,7 @@ final class SettingsStore: ObservableObject {
 
     // MARK: Layout
     /// Comma-separated raw values of visible tabs (Home is always shown).
-    @AppStorage("layout.visibleTabs") var visibleTabsCSV = "Home,Shelf,Agents,Tools" { willSet { objectWillChange.send() } }
+    @AppStorage("layout.visibleTabs") var visibleTabsCSV = "Home,Shelf,Agents,Scores,Tools" { willSet { objectWillChange.send() } }
     @AppStorage("layout.defaultTab") var defaultTabRaw = "Home" { willSet { objectWillChange.send() } }
     /// "mediaCalendar" | "mediaOnly" | "calendarOnly"
     @AppStorage("layout.homeLayout") var homeLayout = "mediaCalendar" { willSet { objectWillChange.send() } }
@@ -50,7 +51,9 @@ final class SettingsStore: ObservableObject {
     @AppStorage("batteryLiveActivity") var batteryLiveActivity = true { willSet { objectWillChange.send() } }
     @AppStorage("agentsLiveActivity") var agentsLiveActivity = true { willSet { objectWillChange.send() } }
     @AppStorage("calendarLiveActivity") var calendarLiveActivity = true { willSet { objectWillChange.send() } }
-    @AppStorage("todosLiveActivity") var todosLiveActivity = true { willSet { objectWillChange.send() } }
+    /// Off by default: the closed bar is for what's live right now, and an
+    /// open-to-do count is a standing badge, not a live activity.
+    @AppStorage("todosLiveActivity") var todosLiveActivity = false { willSet { objectWillChange.send() } }
     @AppStorage("scoresLiveActivity") var scoresLiveActivity = true { willSet { objectWillChange.send() } }
 
     // MARK: HUD replacement

@@ -27,7 +27,9 @@ Features reference only Core types and Apple frameworks, never another feature.
 Hooking a feature into the app touches exactly these files (grep `Todos` for examples):
 
 1. **`UI/OpenNotchView.swift`**: add a `ToolPane` case (raw value = rail label) with its
-   `systemImage`, and a branch in `toolContent`.
+   `systemImage`, and a branch in `toolContent`. For a top-level tab instead (as Scores is),
+   add a `NotchTab` case in `Core/NotchViewModel.swift`, include it in the default of
+   `SettingsStore.visibleTabsCSV`, and branch in `content`.
 2. **`UI/ClosedNotchView.swift`**: add the wing to the `rightWing` `HStack`, gated on
    `settings.<name>LiveActivity`.
 3. **`UI/SettingsRootView.swift`**: add a `Pane` case + `systemImage` + `paneContent` branch,

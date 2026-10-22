@@ -34,7 +34,7 @@ struct ScoresWidgetView: View {
     private var header: some View {
         HStack(spacing: 6) {
             Label("Scores", systemImage: "sportscourt")
-                .font(.system(size: 13, weight: .semibold))
+                .font(HubStyle.title)
                 .foregroundStyle(.white.opacity(0.92))
             Spacer()
             if let error = store.lastError {
@@ -67,8 +67,8 @@ struct ScoresWidgetView: View {
     private func section(_ title: String, _ games: [GameSummary]) -> some View {
         if !games.isEmpty {
             Text(title.uppercased())
-                .font(.system(size: 9.5, weight: .semibold))
-                .tracking(0.6)
+                .font(HubStyle.section)
+                .tracking(HubStyle.sectionTracking)
                 .foregroundStyle(.white.opacity(0.35))
                 .padding(.horizontal, 8)
                 .padding(.top, 4)
@@ -83,10 +83,10 @@ struct ScoresWidgetView: View {
     private var emptyState: some View {
         VStack(spacing: 6) {
             Image(systemName: "sportscourt")
-                .font(.system(size: 22))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(.white.opacity(0.25))
             Text(emptyTitle)
-                .font(.system(size: 12, weight: .medium))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(.white.opacity(0.5))
             Text(emptySubtitle)
                 .font(.system(size: 11))
@@ -135,7 +135,7 @@ private struct GameRowView: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 6)
         .background(
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius)
                 .fill(Color.white.opacity(hovering ? 0.06 : 0))
         )
         .contentShape(Rectangle())
@@ -163,7 +163,7 @@ private struct GameRowView: View {
             Spacer(minLength: 4)
             if let score = side.score {
                 Text("\(score)")
-                    .font(.system(size: 12.5, weight: .semibold))
+                    .font(HubStyle.bodyEmphasis)
                     .monospacedDigit()
                     .foregroundStyle(.white.opacity(isAhead(side, of: opponent) ? 0.95 : 0.5))
                     .contentTransition(.numericText())

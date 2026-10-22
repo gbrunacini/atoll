@@ -29,7 +29,7 @@ struct ShelfView: View {
         }
         .padding(2)
         .overlay(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .strokeBorder(Color.accentColor.opacity(isDropTargeted ? 0.8 : 0), lineWidth: 1.5)
         )
         .animation(.easeOut(duration: 0.15), value: isDropTargeted)
@@ -55,10 +55,10 @@ struct ShelfView: View {
     private var emptyState: some View {
         VStack(spacing: 8) {
             Image(systemName: "tray.and.arrow.down")
-                .font(.system(size: 26, weight: .light))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(.white.opacity(0.4))
             Text("Drop files here")
-                .font(.system(size: 13, weight: .medium))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(.white.opacity(0.75))
             Text("Files, links and text land on the shelf.")
                 .font(.system(size: 11))
@@ -70,14 +70,14 @@ struct ShelfView: View {
                     .font(.system(size: 11, weight: .medium))
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
-                    .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.1)))
+                    .background(RoundedRectangle(cornerRadius: HubStyle.rowRadius).fill(Color.white.opacity(0.1)))
             }
             .buttonStyle(.plain)
             .padding(.top, 4)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .strokeBorder(style: StrokeStyle(lineWidth: 1.5, dash: [5, 4]))
                 .foregroundStyle(Color.white.opacity(0.18))
         )
@@ -188,17 +188,17 @@ struct ShelfView: View {
         } label: {
             VStack(spacing: 4) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                         .fill(Color.white.opacity(0.05))
                         .frame(width: 54, height: 54)
                         .rotationEffect(.degrees(-7))
                         .offset(x: -3, y: 2)
-                    RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                         .fill(Color.white.opacity(0.08))
                         .frame(width: 54, height: 54)
                         .rotationEffect(.degrees(5))
                         .offset(x: 3, y: 1)
-                    RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                         .fill(Color.white.opacity(0.12))
                         .frame(width: 54, height: 54)
                     Text("+\(store.items.count - (collapseThreshold - 1))")
@@ -384,7 +384,7 @@ private struct ShelfTileView: View {
     var body: some View {
         VStack(spacing: 4) {
             ZStack {
-                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                     .fill(Color.white.opacity(0.07))
                 thumbnailContent
             }
@@ -399,11 +399,11 @@ private struct ShelfTileView: View {
         }
         .padding(5)
         .background(
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                 .fill(isSelected ? Color.accentColor.opacity(0.22) : Color.clear)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                 .strokeBorder(isSelected ? Color.accentColor.opacity(0.75) : Color.clear, lineWidth: 1)
         )
         .task(id: item.identityKey) {

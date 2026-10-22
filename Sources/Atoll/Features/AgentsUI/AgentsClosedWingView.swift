@@ -25,15 +25,15 @@ struct AgentsClosedWingView: View {
                 AgentWingGlyph(state: mostUrgentState(sessions))
                 if sessions.count > 1 {
                     Text("\(sessions.count)")
-                        .font(.system(size: 9, weight: .semibold).monospacedDigit())
-                        .foregroundStyle(.white.opacity(0.7))
+                        .font(WingStyle.label)
+                        .foregroundStyle(WingStyle.secondary)
                 }
             }
-            .padding(.horizontal, 7)
+            .padding(.horizontal, WingStyle.inset)
             .frame(maxHeight: .infinity, alignment: .center)
             .contentShape(Rectangle())
             .onTapGesture(perform: onTap)
-            .transition(.opacity.combined(with: .scale(scale: 0.6)))
+            .transition(WingStyle.transition)
             .help(wingHelp(sessions))
         }
     }

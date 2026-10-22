@@ -8,11 +8,13 @@ struct MediaClosedWingLeft: View {
     @ObservedObject private var manager = MusicManager.shared
 
     var body: some View {
-        if manager.mediaEnabled, let playback = manager.playback, playback.hasContent {
+        // Only while playing: a paused track's artwork parked beside the notch
+        // all day reads as "Spotify is stuck on".
+        if manager.mediaEnabled, let playback = manager.playback, playback.hasContent, playback.isPlaying {
             thumbnail(playback)
-                .padding(.leading, 7)
+                .padding(.horizontal, WingStyle.inset)
                 .frame(maxHeight: .infinity, alignment: .center)
-                .transition(.opacity.combined(with: .scale(scale: 0.6)))
+                .transition(WingStyle.transition)
         }
     }
 
@@ -39,8 +41,6 @@ struct MediaClosedWingLeft: View {
         }
         .frame(width: 19, height: 19)
         .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-        .opacity(playback.isPlaying ? 1 : 0.55)
-        .animation(.easeOut(duration: 0.25), value: playback.isPlaying)
     }
 }
 
@@ -61,9 +61,9 @@ struct MediaClosedWingRight: View {
                 isPlaying: true,
                 tint: manager.artworkTint
             )
-            .padding(.trailing, 9)
+            .padding(.horizontal, WingStyle.inset)
             .frame(maxHeight: .infinity, alignment: .center)
-            .transition(.opacity.combined(with: .scale(scale: 0.6)))
+            .transition(WingStyle.transition)
         }
     }
 }

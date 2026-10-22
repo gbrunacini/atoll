@@ -29,7 +29,7 @@ struct TimersWidgetView: View {
         }
         .padding(14)
         .background(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .fill(Color.white.opacity(0.05))
         )
         .frame(minWidth: 260, maxWidth: 360)
@@ -248,7 +248,7 @@ private struct TimerDisplay: View {
                 .monospacedDigit()
                 .frame(width: 40)
                 .padding(.vertical, 2)
-                .background(RoundedRectangle(cornerRadius: 7).fill(Color.white.opacity(0.07)))
+                .background(RoundedRectangle(cornerRadius: HubStyle.controlRadius).fill(Color.white.opacity(0.07)))
             stepButton(systemImage: "chevron.down") { adjust(-1) }
             Text(unit)
                 .font(.system(size: 9, weight: .medium))

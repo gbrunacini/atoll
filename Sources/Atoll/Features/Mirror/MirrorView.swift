@@ -33,7 +33,7 @@ struct MirrorView: View {
 
     private var previewView: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .fill(Color.black)
             MirrorCameraPreview(
                 session: manager.session,
@@ -46,9 +46,9 @@ struct MirrorView: View {
                     .tint(.white.opacity(0.6))
             }
         }
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
         )
         .overlay(alignment: .bottomTrailing) {
@@ -167,13 +167,13 @@ private struct MirrorStatusPane: View {
     var body: some View {
         VStack(spacing: 10) {
             Image(systemName: icon)
-                .font(.system(size: 26, weight: .regular))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(.white.opacity(0.45))
             Text(title)
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(.white)
             Text(message)
-                .font(.system(size: 12))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(.white.opacity(0.55))
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
@@ -186,11 +186,11 @@ private struct MirrorStatusPane: View {
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .fill(Color.white.opacity(0.05))
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
         )
     }
@@ -199,7 +199,7 @@ private struct MirrorStatusPane: View {
 private struct MirrorPillButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 12, weight: .semibold))
+            .font(HubStyle.bodyEmphasis)
             .foregroundStyle(.white)
             .padding(.horizontal, 14)
             .padding(.vertical, 6)

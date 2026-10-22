@@ -65,7 +65,7 @@ struct NotchRootView: View {
             if vm.state == .open {
                 OpenNotchView()
                     .frame(width: vm.openSize.width, height: vm.openSize.height)
-                    .transition(.opacity.combined(with: .scale(scale: 0.9, anchor: .top)))
+                    .transition(.opacity.combined(with: .scale(scale: 0.96, anchor: .top)))
             } else {
                 ClosedNotchView()
                     .frame(height: vm.closedNotchSize.height)
@@ -98,8 +98,8 @@ struct NotchRootView: View {
         )
         .contentShape(notchShape)
         .offset(x: notchOffset)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: vm.leftWingWidth)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: vm.rightWingWidth)
+        .animation(WingStyle.animation, value: vm.leftWingWidth)
+        .animation(WingStyle.animation, value: vm.rightWingWidth)
         .onHover { hovering in
             switch vm.state {
             case .closed:

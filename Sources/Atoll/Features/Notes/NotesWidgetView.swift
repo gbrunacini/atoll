@@ -54,7 +54,7 @@ struct NotesWidgetView: View {
         VStack(spacing: 6) {
             HStack(spacing: 6) {
                 Text("Notes")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(HubStyle.title)
                     .foregroundStyle(Color.white.opacity(0.6))
                 if !store.notes.isEmpty {
                     Text("\(store.notes.count)")
@@ -89,7 +89,7 @@ struct NotesWidgetView: View {
         List {
             ForEach(sortedNotes) { note in
                 NotesRowView(note: note, isSelected: note.id == selectedID)
-                    .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .contentShape(RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous))
                     .onTapGesture { select(note.id) }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
@@ -130,10 +130,10 @@ struct NotesWidgetView: View {
         VStack(spacing: 8) {
             Spacer()
             Image(systemName: "note.text")
-                .font(.system(size: 22))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(Color.white.opacity(0.3))
             Text("No notes yet")
-                .font(.system(size: 12))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(Color.white.opacity(0.5))
             Spacer()
         }
@@ -222,7 +222,7 @@ struct NotesWidgetView: View {
                 }
         }
         .background(
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .fill(Color.white.opacity(0.06))
         )
         .onChange(of: editorFocused) { _, focused in
@@ -235,19 +235,19 @@ struct NotesWidgetView: View {
     private var editorEmptyState: some View {
         VStack(spacing: 10) {
             Image(systemName: "square.and.pencil")
-                .font(.system(size: 26))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(Color.white.opacity(0.3))
             Text(store.notes.isEmpty ? "Jot something down" : "No note selected")
-                .font(.system(size: 13))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(Color.white.opacity(0.55))
             Button(action: newNote) {
                 Label("New Note", systemImage: "plus")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(HubStyle.bodyMedium)
                     .foregroundStyle(.white)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                             .fill(Color.white.opacity(0.12))
                     )
             }
@@ -325,7 +325,7 @@ private struct NotesRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(note.firstLinePreview)
-                .font(.system(size: 12, weight: .medium))
+                .font(HubStyle.bodyMedium)
                 .foregroundStyle(note.isEmpty ? Color.white.opacity(0.45) : .white)
                 .lineLimit(1)
             Text(NotesRelativeDate.string(from: note.updatedAt))
@@ -336,7 +336,7 @@ private struct NotesRowView: View {
         .padding(.horizontal, 8)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                 .fill(
                     isSelected
                         ? Color.white.opacity(0.14)

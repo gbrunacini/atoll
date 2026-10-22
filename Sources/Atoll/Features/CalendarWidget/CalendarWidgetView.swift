@@ -119,10 +119,10 @@ struct CalendarWidgetView: View {
     private var emptyState: some View {
         VStack(spacing: 6) {
             Image(systemName: "calendar")
-                .font(.system(size: 26, weight: .light))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(.white.opacity(0.3))
             Text("No events")
-                .font(.system(size: 12, weight: .medium))
+                .font(HubStyle.emptyTitle)
                 .foregroundStyle(.white.opacity(0.55))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -151,7 +151,7 @@ private struct CalendarEventRow: View {
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 6) {
                         Text(event.title ?? "Untitled Event")
-                            .font(.system(size: 12, weight: .medium))
+                            .font(HubStyle.bodyMedium)
                             .foregroundStyle(.white)
                             .lineLimit(1)
                             .truncationMode(.tail)
@@ -198,10 +198,10 @@ private struct CalendarEventRow: View {
             .padding(.horizontal, 9)
             .padding(.vertical, 6)
             .background(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: HubStyle.rowRadius)
                     .fill(Color.white.opacity(isHovered ? 0.1 : 0.05))
             )
-            .contentShape(RoundedRectangle(cornerRadius: 10))
+            .contentShape(RoundedRectangle(cornerRadius: HubStyle.rowRadius))
         }
         .buttonStyle(.plain)
         .onHover { hovering in
@@ -241,7 +241,7 @@ private struct CalendarPermissionPrompt: View {
     var body: some View {
         VStack(spacing: 10) {
             Image(systemName: "calendar.badge.exclamationmark")
-                .font(.system(size: 24, weight: .light))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(.white.opacity(0.35))
             Text(message)
                 .font(.system(size: 11))

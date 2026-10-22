@@ -239,7 +239,7 @@ struct AgentsPanelView: View {
                         .padding(.horizontal, 9)
                         .padding(.vertical, 4)
                         .background(
-                            RoundedRectangle(cornerRadius: 7, style: .continuous)
+                            RoundedRectangle(cornerRadius: HubStyle.controlRadius, style: .continuous)
                                 .fill(section == s ? Color.white.opacity(0.14) : .clear)
                         )
                         .foregroundStyle(section == s ? .white : Color(white: 0.6))
@@ -331,7 +331,7 @@ struct AgentsPanelView: View {
         VStack(spacing: 10) {
             Spacer(minLength: 0)
             Image(systemName: "sparkles.rectangle.stack")
-                .font(.system(size: 26))
+                .font(HubStyle.emptyGlyph)
                 .foregroundStyle(Color(white: 0.45))
             Text("No agent sessions")
                 .font(.system(size: 13, weight: .semibold))
@@ -352,11 +352,11 @@ struct AgentsPanelView: View {
                     installer.install()
                 } label: {
                     Label("Install hooks", systemImage: "bolt.badge.checkmark")
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(HubStyle.bodyEmphasis)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 7)
                         .background(
-                            RoundedRectangle(cornerRadius: 9, style: .continuous)
+                            RoundedRectangle(cornerRadius: HubStyle.rowRadius, style: .continuous)
                                 .fill(Color.white.opacity(0.16))
                         )
                         .foregroundStyle(.white)
@@ -399,7 +399,7 @@ private struct AgentSessionRow: View {
         .padding(.horizontal, 10)
         .padding(.vertical, 8)
         .background(
-            RoundedRectangle(cornerRadius: 11, style: .continuous)
+            RoundedRectangle(cornerRadius: HubStyle.cardRadius, style: .continuous)
                 .fill(Color.white.opacity(session.state.needsAttention ? 0.10 : 0.06))
         )
         .opacity(session.isStale || session.state == .ended ? 0.55 : 1)
