@@ -8,11 +8,6 @@ struct NotchRootView: View {
     @EnvironmentObject var settings: SettingsStore
     @ObservedObject private var music = MusicManager.shared
 
-    /// Top-corner flare radius of the closed shape. The closed content is
-    /// padded by this much per side so the shape's *body* (bounds minus the
-    /// flares) exactly covers the hardware cutout + wings.
-    private let closedFlareRadius: CGFloat = 8
-
     var body: some View {
         VStack(spacing: 0) {
             notch
@@ -24,8 +19,11 @@ struct NotchRootView: View {
     }
 
     private var notchShape: NotchShape {
+        // Closed: square top corners, flush with the bezel like the hardware
+        // cutout. Flares there read as little tabs, especially once a scaled
+        // resolution resamples them. The open hub keeps its larger flares.
         NotchShape(
-            topCornerRadius: vm.state == .open ? 12 : closedFlareRadius,
+            topCornerRadius: vm.state == .open ? 12 : 0,
             bottomCornerRadius: vm.state == .open ? settings.openCornerRadius : 13
         )
     }
@@ -71,7 +69,6 @@ struct NotchRootView: View {
             } else {
                 ClosedNotchView()
                     .frame(height: vm.closedNotchSize.height)
-                    .padding(.horizontal, closedFlareRadius)
                     .fixedSize()
                     .transition(.opacity)
             }
