@@ -24,12 +24,12 @@ struct TimerClosedWing: View {
             HStack(spacing: 5) {
                 ring
                 Text(TimersFormatting.countdown(manager.countdownRemaining))
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundStyle(manager.countdownPhase == .paused ? .white.opacity(0.55) : .white)
+                    .font(WingStyle.label)
+                    .foregroundStyle(manager.countdownPhase == .paused ? WingStyle.secondary : WingStyle.primary)
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, WingStyle.inset)
             .frame(maxHeight: .infinity)
+            .transition(WingStyle.transition)
             .opacity(finishedOpacity)
             .onChange(of: manager.countdownPhase) { _, phase in
                 if phase == .finished {
@@ -46,12 +46,12 @@ struct TimerClosedWing: View {
             HStack(spacing: 5) {
                 pomodoroRing
                 Text(TimersFormatting.countdown(manager.pomodoroRemaining))
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundStyle(manager.pomodoroPaused ? .white.opacity(0.55) : .white)
+                    .font(WingStyle.label)
+                    .foregroundStyle(manager.pomodoroPaused ? WingStyle.secondary : WingStyle.primary)
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, WingStyle.inset)
             .frame(maxHeight: .infinity)
+            .transition(WingStyle.transition)
         }
     }
 

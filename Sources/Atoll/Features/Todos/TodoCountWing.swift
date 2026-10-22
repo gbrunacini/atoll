@@ -12,14 +12,14 @@ struct TodoCountWing: View {
                 Image(systemName: "checklist")
                     .font(.system(size: 9, weight: .semibold))
                 Text("\(store.openCount)")
-                    .font(.system(size: 11, weight: .semibold))
-                    .monospacedDigit()
+                    .font(WingStyle.label)
                     .contentTransition(.numericText())
             }
-            .foregroundStyle(.white.opacity(0.85))
-            .padding(.horizontal, 8)
+            .foregroundStyle(WingStyle.primary)
+            .padding(.horizontal, WingStyle.inset)
             .frame(maxHeight: .infinity)
-            .animation(.spring(response: 0.3, dampingFraction: 0.85), value: store.openCount)
+            .transition(WingStyle.transition)
+            .animation(WingStyle.animation, value: store.openCount)
         }
     }
 }

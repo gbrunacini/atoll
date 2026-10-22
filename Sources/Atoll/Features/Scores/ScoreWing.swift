@@ -26,18 +26,18 @@ struct ScoreWing: View {
         HStack(spacing: 4) {
             Text("\(game.away.abbreviation) \(game.away.score ?? 0)")
             Text("–")
-                .foregroundStyle(.white.opacity(0.4))
+                .foregroundStyle(WingStyle.muted)
             Text("\(game.home.abbreviation) \(game.home.score ?? 0)")
             Text(game.periodLabel)
-                .foregroundStyle(.white.opacity(0.55))
+                .foregroundStyle(WingStyle.secondary)
         }
-        .font(.system(size: 11, weight: .semibold))
-        .monospacedDigit()
-        .foregroundStyle(.white.opacity(0.85))
+        .font(WingStyle.label)
+        .foregroundStyle(WingStyle.primary)
         .lineLimit(1)
         .contentTransition(.numericText())
-        .padding(.horizontal, 8)
+        .padding(.horizontal, WingStyle.inset)
         .frame(maxHeight: .infinity)
-        .animation(.spring(response: 0.3, dampingFraction: 0.85), value: game)
+        .transition(WingStyle.transition)
+        .animation(WingStyle.animation, value: game)
     }
 }

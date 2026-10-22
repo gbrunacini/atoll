@@ -22,20 +22,19 @@ struct CalendarNextEventWing: View {
                     .fill(Color(nsColor: event.calendar?.color ?? .systemBlue))
                     .frame(width: 3, height: 13)
                 Text(timeText(for: event))
-                    .font(.system(size: 10.5, weight: .semibold))
-                    .monospacedDigit()
-                    .foregroundStyle(.white.opacity(0.85))
+                    .font(WingStyle.label)
+                    .foregroundStyle(WingStyle.primary)
                     .lineLimit(1)
                     .fixedSize()
                 Text(event.title ?? "Event")
-                    .font(.system(size: 10.5))
-                    .foregroundStyle(.white.opacity(0.55))
+                    .font(WingStyle.detail)
+                    .foregroundStyle(WingStyle.secondary)
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .frame(maxWidth: titleMaxWidth, alignment: .leading)
             }
-            .padding(.horizontal, 4)
-            .transition(.opacity.combined(with: .move(edge: .trailing)))
+            .padding(.horizontal, WingStyle.inset)
+            .transition(WingStyle.transition)
         }
     }
 

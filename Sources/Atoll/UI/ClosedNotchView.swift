@@ -9,8 +9,6 @@ struct ClosedNotchView: View {
     @EnvironmentObject var settings: SettingsStore
 
     @ObservedObject private var peek = SneakPeekCoordinator.shared
-    @ObservedObject private var music = MusicManager.shared
-    @ObservedObject private var agents = AgentSessionStore.shared
     @ObservedObject private var battery = BatteryMonitor.shared
 
     /// Transient battery/bluetooth event live activity.
@@ -45,7 +43,7 @@ struct ClosedNotchView: View {
                 .background(WingWidthReader(side: .right))
         }
         .onPreferenceChange(WingWidthPreferenceKey.self) { widths in
-            withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+            withAnimation(WingStyle.animation) {
                 vm.leftWingWidth = widths[.left] ?? 0
                 vm.rightWingWidth = widths[.right] ?? 0
             }
@@ -68,15 +66,13 @@ struct ClosedNotchView: View {
                 .padding(.leading, 8)
         } else if case .battery = transientEvent, settings.batteryLiveActivity {
             Text(battery.eventStatusText)
-                .font(.system(size: 11, weight: .medium))
+                .font(WingStyle.detail)
                 .foregroundStyle(batteryEventColor)
                 .lineLimit(1)
                 .padding(.leading, 10)
                 .padding(.trailing, 4)
         } else if settings.mediaLiveActivity {
             MediaClosedWingLeft()
-                .padding(.leading, 7)
-                .padding(.trailing, 3)
         }
     }
 
@@ -98,7 +94,9 @@ struct ClosedNotchView: View {
                     .padding(.horizontal, 8)
             }
         } else {
-            HStack(spacing: 7) {
+            // Only what's live right now. Each wing pads itself (WingStyle.inset)
+            // and renders nothing when idle, so the row collapses to no stub.
+            HStack(spacing: 0) {
                 if settings.mediaLiveActivity {
                     MediaClosedWingRight()
                 }
@@ -108,24 +106,17 @@ struct ClosedNotchView: View {
                 if settings.agentsLiveActivity {
                     AgentsClosedWingView(onTap: { vm.open(tab: .agents) })
                 }
+                if settings.scoresLiveActivity {
+                    ScoreWing()
+                }
                 if settings.calendarLiveActivity {
                     CalendarNextEventWing()
                 }
                 if settings.todosLiveActivity {
                     TodoCountWing()
                 }
-                if settings.scoresLiveActivity {
-                    ScoreWing()
-                }
             }
-            .padding(.leading, 3)
-            .padding(.trailing, hasAnyRightContent ? 8 : 0)
         }
-    }
-
-    private var hasAnyRightContent: Bool {
-        (settings.mediaLiveActivity && music.playback?.isPlaying == true)
-            || (settings.agentsLiveActivity && agents.liveSessionCount > 0)
     }
 
     private var batteryEventColor: Color {

@@ -12,9 +12,9 @@ struct MediaClosedWingLeft: View {
         // all day reads as "Spotify is stuck on".
         if manager.mediaEnabled, let playback = manager.playback, playback.hasContent, playback.isPlaying {
             thumbnail(playback)
-                .padding(.leading, 7)
+                .padding(.horizontal, WingStyle.inset)
                 .frame(maxHeight: .infinity, alignment: .center)
-                .transition(.opacity.combined(with: .scale(scale: 0.6)))
+                .transition(WingStyle.transition)
         }
     }
 
@@ -61,9 +61,9 @@ struct MediaClosedWingRight: View {
                 isPlaying: true,
                 tint: manager.artworkTint
             )
-            .padding(.trailing, 9)
+            .padding(.horizontal, WingStyle.inset)
             .frame(maxHeight: .infinity, alignment: .center)
-            .transition(.opacity.combined(with: .scale(scale: 0.6)))
+            .transition(WingStyle.transition)
         }
     }
 }

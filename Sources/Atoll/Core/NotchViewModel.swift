@@ -70,8 +70,10 @@ final class NotchViewModel: ObservableObject {
         self.settings = settings
     }
 
-    static let openAnimation = Animation.spring(response: 0.38, dampingFraction: 0.8)
-    static let closeAnimation = Animation.spring(response: 0.32, dampingFraction: 0.9)
+    // Near-critically damped: the hub settles without the overshoot that read
+    // as bounce. Close is a touch quicker than open.
+    static let openAnimation = Animation.spring(response: 0.36, dampingFraction: 0.9)
+    static let closeAnimation = Animation.spring(response: 0.28, dampingFraction: 0.95)
 
     func open(tab: NotchTab? = nil) {
         closeTask?.cancel()
